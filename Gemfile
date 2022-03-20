@@ -18,6 +18,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# A streaming JSON parsing and encoding library for Ruby (C bindings to yajl)
+gem 'yajl-ruby'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
