@@ -21,6 +21,12 @@ gem "bootsnap", require: false
 # A streaming JSON parsing and encoding library for Ruby (C bindings to yajl)
 gem 'yajl-ruby'
 
+# ActiveModel::Serializer implementation and Rails hooks
+gem 'active_model_serializers'
+
+# Pagination
+gem 'kaminari'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
