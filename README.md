@@ -37,6 +37,12 @@ bundle exec rake db:drop db:create
 bundle exec rake db:migrate
 ```
 
+- Start the Rails server
+```
+bundle exec rails s
+```
+Run it on [http://localhost:3000](http://localhost:3000)
+
 - Add seed data to the database.
 ```
 bundle exec rake db:seed
