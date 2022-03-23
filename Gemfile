@@ -27,6 +27,9 @@ gem 'active_model_serializers'
 # Pagination
 gem 'kaminari'
 
+# Builds ActiveRecord named scopes that take advantage of PostgreSQL’s full text search
+gem 'pg_search'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
