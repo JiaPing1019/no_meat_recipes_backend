@@ -7,6 +7,7 @@ created = 0
 
 puts 'Create and store recipes in the DB'
 errors = []
+start_time = Time.zone.now
 
 # Consider the recipes as no meat when matching the following conditions
 # ① Category name contains Vegan or Vegetarian
@@ -21,11 +22,20 @@ def no_meat_recipe?(title, category)
     category.match('vegan').present?
 end
 
+def find_category(category_name)
+  # There are some data with no category, we give them 「undefined」 category for now
+  return Category.find_or_create_by(name: 'undefined') if category_name.empty? 
+
+  category = Category.find_by(name: category_name)
+  return category if category.present?
+
+  Category.create(name: category_name)
+end
+
 recipes.each do |data|
   next unless no_meat_recipe?(data['title'], data['category'])
 
-  category = Category.find_by(name: data['category'])
-  category = Category.create(name: data['category']) if category.nil?
+  category = find_category(data['category'])
 
   recipe = category.recipes.create(
     title: data['title'],
@@ -43,8 +53,10 @@ recipes.each do |data|
 
   created += 1
 rescue StandardError => e
-  errors << "#{e.class}: #{e.message}"
+  errors << "#{e.class}: #{e.message}. Failed recipe title: #{data['title']}."
 end
+
+finished_time = Time.zone.now 
 
 puts 'Finish!!!'
 
@@ -52,5 +64,6 @@ puts '---------------------------------------'
 puts '【SUMMARY REPORT】'
 puts "Total targeted object: #{recipes.size}"
 puts "Created object: #{created}"
+puts "Total execution time: #{finished_time - start_time}" 
 puts "Error: #{errors.uniq}"
 puts '---------------------------------------'
