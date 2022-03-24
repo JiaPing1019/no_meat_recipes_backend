@@ -3,8 +3,7 @@
 class RecipesController < ApplicationController
   def index
     if params[:ingredientQuery].present?
-      ingredients_query = params[:ingredientQuery].split(' ').join('&')
-      @recipes = Recipe.ingredient_search(ingredients_query).page(recipe_params[:page]).per(12)
+      @recipes = Recipe.ingredient_search(params[:ingredientQuery]).page(recipe_params[:page]).per(12)
     else
       @recipes = Recipe.all.page(recipe_params[:page]).per(12)
     end
